@@ -1,4 +1,5 @@
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://to-do-list-grad-be-production.up.railway.app";
 
 async function addNote(noteData) {
   const response = await fetch(`${baseUrl}/notes`, {
