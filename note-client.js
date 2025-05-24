@@ -1,54 +1,102 @@
 // const baseUrl = "http://localhost:3000";
 const baseUrl = "https://to-do-list-grad-be-production.up.railway.app";
 
-async function addNote(noteData) {
-  const response = await fetch(`${baseUrl}/notes`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(noteData),
-  });
+function getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
 
-  return response;
+async function addNote(noteData) {
+    const response = await fetch(`${baseUrl}/notes`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(noteData),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 401) {
+            // Token expired or invalid
+            logout();
+        }
+        throw new Error(error.message);
+    }
+
+    return response;
 }
 
 async function updateNote(noteData) {
-  console.log("11111111111111111",noteData);
-  
-  const response = await fetch(`${baseUrl}/notes`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(noteData),
-  });
+    const response = await fetch(`${baseUrl}/notes`, {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(noteData),
+    });
 
-  return response;
+    if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 401) {
+            logout();
+        }
+        throw new Error(error.message);
+    }
+
+    return response;
 }
 
 async function deleteNote(noteId) {
-  const response = await fetch(`${baseUrl}/notes/${noteId}`, {
-    method: "DELETE",
-  });
+    const response = await fetch(`${baseUrl}/notes/${noteId}`, {
+        method: "DELETE",
+        headers: getAuthHeaders()
+    });
 
-  return response;
+    if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 401) {
+            logout();
+        }
+        throw new Error(error.message);
+    }
+
+    return response;
 }
 
 async function getNoteById(noteId) {
-  const response = await fetch(`${baseUrl}/notes/${noteId}`, {
-    method: "GET",
-  });
+    const response = await fetch(`${baseUrl}/notes/${noteId}`, {
+        method: "GET",
+        headers: getAuthHeaders()
+    });
 
-  return response.json();
+    if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 401) {
+            logout();
+        }
+        throw new Error(error.message);
+    }
+
+    return response.json();
 }
 
 async function getNotes(noteTitle) {
-  var url = `${baseUrl}/notes`;
+    var url = `${baseUrl}/notes`;
+    if (noteTitle) {
+        url += `/?title=${noteTitle}`;
+    }
 
-  if (noteTitle) {
-    url += `/?title=${noteTitle}`;
-  }
-  const response = await fetch(url);
-  return response.json();
+    const response = await fetch(url, {
+        headers: getAuthHeaders()
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 401) {
+            logout();
+        }
+        throw new Error(error.message);
+    }
+
+    return response.json();
 }
