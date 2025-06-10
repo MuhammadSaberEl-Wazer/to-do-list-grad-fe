@@ -27,10 +27,29 @@ h1 {
   text-align: center;
 }
 
+.navigation-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures left and right sides */
+  padding: 0 30px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo image styling remains the same */
 .navigation-bar img {
-  float: left;
-  padding: 10px;
   height: 60px;
+  padding: 10px;
 }
 
 /* Search Input Field */
@@ -132,13 +151,98 @@ tr:hover td {
 }
 
 .logout-button {
-    float: right;
-    margin: 20px;
-    background-color: #dc3545;
-    border-color: #dc3545;
+  float: right;
+  margin: 20px;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .logout-button:hover {
-    background-color: white;
-    color: #dc3545;
+  background-color: white;
+  color: #dc3545;
+}
+
+body.light-mode {
+  background: #fff;
+  color: #222;
+}
+body.dark-mode {
+  background: #222;
+  color: #fff;
+}
+
+.theme-toggle-container {
+  background-color: red;
+}
+
+/* ...existing code... */
+.navigation-bar {
+  background-color: rgb(51, 51, 51);
+  height: 80px;
+  width: 100%;
+  margin-bottom: 20px;
+  color: whitesmoke;
+  text-align: center;
+}
+
+.navigation-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures left and right sides */
+  padding: 0 30px;
+  width: 95%; /* Ensures the container takes full width */
+  margin: auto;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo image styling remains the same */
+.navigation-bar img {
+  height: 60px;
+  padding: 10px;
+}
+
+/* Logout and Theme Toggle Buttons */
+#logoutBtn {
+  margin-left: 10px;
+  font-size: 1.2em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: 2px solid #dc3545;
+}
+
+#logoutBtn:hover {
+  background: #fff;
+  color: #dc3545;
+}
+
+#themeToggle {
+  margin-left: 10px;
+  font-size: 1.2em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #f0f0f0;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#themeToggle:hover {
+  background: #e0e0e0;
 }

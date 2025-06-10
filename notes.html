@@ -1,129 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Handlee&family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+    <title>Notaty</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/modal.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Indie+Flower&display=swap" rel="stylesheet" />
-  <title>Notaty</title>
-</head>
+    <script>
+      function logout() {
+        // Clear authentication data from localStorage
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
 
-<body onload="updateNotesTable()">
-  <!-- Top menu -->
-  <!-- Add this in the navigation bar -->
-  <div class="navigation-bar">
-    <div class="navigation-container">
-      <img src="images/note.png" />
-      <h1>Notaty</h1>
-    </div>
-    <button onclick="logout()" class="action-button logout-button">Logout</button>
-  </div>
+        // Redirect to login page
+        window.location.href = "login.html";
+      }
+    </script>
+  </head>
 
-  <!-- Search bar -->
-  <div>
-    <button id="addBtn" class="action-button" onclick="openAddModal()" type="button">
-      Add
-    </button>
-    <input id="searchInput" type="text" class="search-input" placeholder="Search for note by title ..." />
-    <button id="searchBtn" onclick="searchNotes()" type="button" class="action-button">Search</button>
-  </div>
-
-  <!-- Notes table -->
-  <table id="notes-table">
-    <colgroup>
-      <col span="1" style="width: 20%;" />
-      <col span="1" style="width: 55%;" />
-      <col span="1" style="width: 20%;" />
-      <col span="1" style="width: 5%;" />
-    </colgroup>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Last Updated</th>
-      <th></th>
-    </tr>
-  </table>
-
-  <!-- Add Note Modal -->
-  <div id="addNoteModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span id="closeAdd" class="close">&times;</span>
-        <h2>New Note</h2>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="left">
-            <p>Title</p>
-          </div>
-          <div class="right">
-            <input id="addTitle" type="text" class="modal-input" />
-          </div>
+  <body onload="updateNotesTable()">
+    <!-- Top menu -->
+    <!-- Add this in the navigation bar -->
+    <div class="navigation-bar">
+      <div class="navigation-container">
+        <div class="nav-left">
+          <img src="images/note.png" />
+          <h1>Notaty</h1>
         </div>
-        <div class="row">
-          <div class="left">
-            <p>Content</p>
-          </div>
-          <div class="right">
-            <textarea id="addContent"></textarea>
-          </div>
+        <div class="nav-right">
+          <button
+            id="logoutBtn"
+            type="button"
+            onclick="logout()"
+            class="action-button"
+          >
+            Logout
+          </button>
+          <button id="themeToggle" type="button" class="action-button">
+            🌙
+          </button>
         </div>
-        <p id="addError" class="error"></p>
-      </div>
-      <div class="modal-footer">
-        <button id="saveAddNoteBtn" onclick="saveNewNote()" type="button" class="action-button">Save
+        <!-- <img src="images/note.png" />
+        <h1>Notaty</h1>
+        <button
+          id="logoutBtn"
+          class="action-button"
+          type="button"
+          onclick="logout()"
+        >
+          Logout
         </button>
-        <button id="cancelAddNoteBtn" type="button" class="action-button">
-          Cancel
-        </button>
+        <button id="themeToggle" class="action-button" type="button">🌙</button> -->
       </div>
     </div>
-  </div>
 
-  <!-- Edit Note Modal -->
-  <div id="editNoteModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span id="closeEdit" class="close">&times;</span>
-        <h2>Edit Note</h2>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="left">
-            <p>Title</p>
-          </div>
-          <div class="right">
-            <input id="editTitle" type="text" class="modal-input" />
-          </div>
+    <!-- Search bar -->
+    <div>
+      <button id="addBtn" class="action-button" onclick="openAddModal()" type="button">Add</button>
+      <button id="exportExcelBtn" class="action-button" type="button">Export to Excel</button>
+      <input id="searchInput" type="text" class="search-input" placeholder="Search for note by title ..." />
+      <button id="searchBtn" onclick="searchNotes()" type="button" class="action-button">Search</button>
+    </div>
+
+    <!-- Notes table -->
+    <table id="notes-table">
+      <colgroup>
+        <col span="1" style="width: 20%" />
+        <col span="1" style="width: 55%" />
+        <col span="1" style="width: 20%" />
+        <col span="1" style="width: 5%" />
+      </colgroup>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Last Updated</th>
+        <th></th>
+      </tr>
+    </table>
+
+    <!-- Add Note Modal -->
+    <div id="addNoteModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span id="closeAdd" class="close">&times;</span>
+          <h2>New Note</h2>
         </div>
-        <div class="row">
-          <div class="left">
-            <p>Content</p>
+        <div class="modal-body">
+          <div class="row">
+            <div class="left">
+              <p>Title</p>
+            </div>
+            <div class="right">
+              <input id="addTitle" type="text" class="modal-input" />
+            </div>
           </div>
-          <div class="right">
-            <textarea id="editContent"></textarea>
+          <div class="row">
+            <div class="left">
+              <p>Content</p>
+            </div>
+            <div class="right">
+              <textarea id="addContent"></textarea>
+            </div>
           </div>
+          <p id="addError" class="error"></p>
         </div>
-        <p id="editError" class="error"></p>
-      </div>
-      <div class="modal-footer">
-        <button id="saveEditNoteBtn" onclick="saveEditNote()" type="button" class="action-button">
-          Save
-        </button>
-        <button id="cancelEditNoteBtn" type="button" class="action-button">
-          Cancel
-        </button>
+        <div class="modal-footer">
+          <button
+            id="saveAddNoteBtn"
+            onclick="saveNewNote()"
+            type="button"
+            class="action-button"
+          >
+            Save
+          </button>
+          <button id="cancelAddNoteBtn" type="button" class="action-button">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="note-client.js"></script>
-  <script src="note-handler.js"></script>
-  <script src="modal-handler.js"></script>
-  <script src="js/auth-handler.js"></script>
-</body>
 
+    <!-- Edit Note Modal -->
+    <div id="editNoteModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span id="closeEdit" class="close">&times;</span>
+          <h2>Edit Note</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="left">
+              <p>Title</p>
+            </div>
+            <div class="right">
+              <input id="editTitle" type="text" class="modal-input" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="left">
+              <p>Content</p>
+            </div>
+            <div class="right">
+              <textarea id="editContent"></textarea>
+            </div>
+          </div>
+          <p id="editError" class="error"></p>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="saveEditNoteBtn"
+            onclick="saveEditNote()"
+            type="button"
+            class="action-button"
+          >
+            Save
+          </button>
+          <button id="cancelEditNoteBtn" type="button" class="action-button">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Note Modal -->
+    <div id="viewNoteModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span id="closeView" class="close">&times;</span>
+          <h2>Note Details</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="left"><p>Title</p></div>
+            <div class="right">
+              <input id="viewTitle" type="text" class="modal-input" disabled />
+            </div>
+          </div>
+          <div class="row">
+            <div class="left"><p>Content</p></div>
+            <div class="right">
+              <textarea id="viewContent" disabled></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="left"><p>Last Updated</p></div>
+            <div class="right">
+              <input id="viewDate" type="text" class="modal-input" disabled />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="closeViewBtn" type="button" class="action-button">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+      document.getElementById('exportExcelBtn').onclick = function () {
+        const table = document.getElementById('notes-table');
+        // Clone the table to avoid modifying the DOM
+        const clone = table.cloneNode(true);
+
+        // Remove the last column (options) from header and all rows
+        for (let row of clone.rows) {
+          row.deleteCell(-1);
+        }
+
+        // Convert table to worksheet
+        const wb = XLSX.utils.table_to_book(clone, { sheet: "Notes" });
+        XLSX.writeFile(wb, "notes.xlsx");
+      };
+    </script>
+    <script src="js/dark-mode-toggler.js"></script>
+    <script src="note-client.js"></script>
+    <script src="modal-handler.js"></script>
+    <script src="note-handler.js"></script>
+    <script src="js/auth-handler.js"></script>
+  </body>
 </html>

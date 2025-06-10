@@ -1,5 +1,5 @@
-// const baseUrl = "http://localhost:3000";
-const baseUrl = "https://to-do-list-grad-be-production.up.railway.app";
+const baseUrl = "http://localhost:3000";
+// const baseUrl = "https://to-do-list-grad-be-production.up.railway.app";
 
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,16 +122,16 @@ function checkAuth() {
     }
 }
 
-// Logout function
-function logout() {
-    console.log("222222222222222");
+// // Logout function
+// function logout() {
+//     console.log("222222222222222");
     
-    // Clear authentication data from localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+//     // Clear authentication data from localStorage
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('user');
     
-    // Redirect to login page
-    window.location.href = 'login.html';
-}
+//     // Redirect to login page
+//     window.location.href = 'login.html';
+// }
 // Call checkAuth when page loads
 window.addEventListener('load', checkAuth);

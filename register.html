@@ -10,12 +10,19 @@
     />
     <title>Notaty - Register</title>
   </head>
+   <script src="js/dark-mode-toggler.js"></script>
   <body>
     <!-- Top menu -->
     <div class="navigation-bar">
       <div class="navigation-container">
-        <img src="images/note.png" />
-        <h1>Notaty</h1>
+        <div class="nav-left">
+          <img src="images/note.png" />
+          <h1>Notaty</h1>
+        </div>
+        <div class="nav-right">
+          <button id="logoutBtn" type="button" onclick="logout()">Logout</button>
+          <button id="themeToggle" type="button">🌙</button>
+        </div>
       </div>
     </div>
 
