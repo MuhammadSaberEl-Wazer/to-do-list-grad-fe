@@ -1,6 +1,6 @@
-* {
+/* * {
   font-family: Helvetica;
-}
+} */
 
 textarea {
   width: 100%;
@@ -127,4 +127,24 @@ textarea {
 .error {
   color: red; 
   text-align: center;
+}
+
+
+/* أضف هذا في style.css */
+.selected-tags-box {
+  min-height: 40px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  background: #fafafa;
+}
+.tag-chip {
+  background: #e0e7ff;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
 }
