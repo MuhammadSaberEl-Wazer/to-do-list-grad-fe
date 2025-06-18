@@ -299,32 +299,30 @@ document.getElementById("editTagSelect").onchange = function () {
  * @param {string} containerId - الـ id الخاص بالعنصر الذي سيتم عرض الوسوم فيه
  * @param {Array} tagsArray - مصفوفة جميع الوسوم (عادة cachedTags)
  */
-function renderTags(tagIds, containerId, tagsArray) {
-  const tagsDiv = document.getElementById(containerId);
+// function renderTags(tagIds, containerId, tagsArray) {
+//   const tagsDiv = document.getElementById(containerId);
 
-  console.log("tagsArray", tagsArray, "IDS", tagIds);
-
-  if (!tagsDiv) return;
-  tagsDiv.innerHTML = "";
-  tagIds.forEach((tagId) => {
-    // يدعم أن يكون tagId كائن أو ID فقط
-    const id = tagId._id || tagId;
-    const tag = tagsArray.find((t) => t._id === id);
-    if (tag) {
-      const tagDiv = document.createElement("div");
-      tagDiv.className = "tag-chip";
-      tagDiv.textContent = tag.name;
-      tagDiv.style.border = `1.5px solid ${tag.color}`;
-      tagDiv.style.color = tag.color;
-      tagDiv.style.background = hexToRgba(tag.color, 0.15);
-      tagDiv.style.display = "inline-block";
-      tagDiv.style.margin = "2px";
-      tagDiv.style.pointerEvents = "none"; // يمنع التفاعل
-      tagDiv.style.display = "flex"; // يمنع التفاعل
-      tagsDiv.appendChild(tagDiv);
-    }
-  });
-}
+//   if (!tagsDiv) return;
+//   tagsDiv.innerHTML = "";
+//   tagIds.forEach((tagId) => {
+//     // يدعم أن يكون tagId كائن أو ID فقط
+//     const id = tagId._id || tagId;
+//     const tag = tagsArray.find((t) => t._id === id);
+//     if (tag) {
+//       const tagDiv = document.createElement("div");
+//       tagDiv.className = "tag-chip";
+//       tagDiv.textContent = tag.name;
+//       tagDiv.style.border = `1.5px solid ${tag.color}`;
+//       tagDiv.style.color = tag.color;
+//       tagDiv.style.background = hexToRgba(tag.color, 0.15);
+//       tagDiv.style.display = "inline-block";
+//       tagDiv.style.margin = "2px";
+//       tagDiv.style.pointerEvents = "none"; // يمنع التفاعل
+//       tagDiv.style.display = "flex"; // يمنع التفاعل
+//       tagsDiv.appendChild(tagDiv);
+//     }
+//   });
+// }
 
 function showViewTags(tagIds) {
   const tagsDiv = document.getElementById("viewTags");
@@ -369,7 +367,7 @@ function hexToRgba(hex, alpha) {
 // }
 
 function openViewModal(noteId) {
-  console.log("noteId", noteId);
+ 
 
   var modal = document.getElementById("viewNoteModal");
 
@@ -380,8 +378,8 @@ function openViewModal(noteId) {
       document.getElementById("viewDate").value = formatDateTime(
         note.updateDate
       );
-      // استخدم الدالة الموحدة هنا
-      console.log("note.tags", note.tags);
+     
+      
 
       renderTags(note.tags || [], "viewTags", cachedTags);
     });
@@ -399,7 +397,7 @@ function openViewModal(noteId) {
 }
 
 // عند تحميل الصفحة أو بعد جلب الوسوم:
-if (cachedTags.length === 0) {
+if (cachedTags?.length === 0) {
   getAllTags().then((tags) => {
     cachedTags = tags;
   });
@@ -407,7 +405,7 @@ if (cachedTags.length === 0) {
 
 function searchNotes() {
   const searchTitle = document.getElementById("searchInput").value;
-  updateNotesTable(undefined, searchTitle, filterTagId);
+  updateNotesTable(undefined, searchTitle);
 }
 
 window.onload = function () {

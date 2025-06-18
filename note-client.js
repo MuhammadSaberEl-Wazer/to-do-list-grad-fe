@@ -99,3 +99,22 @@ async function getAllTags() {
 
   return response.json();
 }
+
+
+async function getAllStatuses() {
+  const response = await fetch(`${baseUrl}/status`, {
+    method: "GET",
+    headers: getAuthHeaders(),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    if (response.status === 401) {
+      logout();
+    }
+    throw new Error(error.message);
+  }
+
+  return response.json();
+}
+
